@@ -52,6 +52,18 @@ class SessionsController extends Controller
             'message' => 'Please Check your credentials and try again!'
         ]);
     }
+    public function apistore(Request $request)
+    {
+
+        $user = User::where('email', $request->email)->first();
+
+        if (Hash::check($request->password, $user->password)) {
+            return response()->json(['msg'=>'Successfully Login','status'=>'success']);
+        }
+
+        return response()->json(['msg'=>'Please Check your credentials and try again!','status'=>'fail']);
+
+    }
 
     /**
      * Display the specified resource.

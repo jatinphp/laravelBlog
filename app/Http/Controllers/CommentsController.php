@@ -37,9 +37,12 @@ class CommentsController extends Controller
      */
     public function store(Posts $post)
     {
+        $message = [
+            'body.min'=> 'Comments length minimum 10 digit required!'
+        ];
         $this->validate(request(),[
             'body' => 'required|min:10'
-        ]);
+        ],$message);
         $post->addComments(request('body'));
 
         return back();

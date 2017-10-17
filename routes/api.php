@@ -18,7 +18,17 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::resource('post', 'APIController');
+    Route::get('post', 'APIController@index');
+    Route::post('login', function (Request $request){
+        $user = User::where('email', $request->email)->first();
+        if (Hash::check($request->password, $user->password)) {
+            return response()->json(['msg'=>'Successfully Login','status'=>'success','user'=>$user]);
+        }
+        return response()->json(['msg'=>'Please Check your credentials and try again!','status'=>'fail']);
+    });
+    Route::post('post', 'APIController@store');
+    Route::get('post/{id}', 'APIController@show');
+
 });
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {

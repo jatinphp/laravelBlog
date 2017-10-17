@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use \App\Posts;
 use Carbon\Carbon;
 use phpDocumentor\Reflection\Types\Null_;
-use GuzzleHttp\Client;
 
 class PostsController extends Controller
 {
@@ -19,10 +18,6 @@ class PostsController extends Controller
 
     public function index()
     {
-        $guzzle = new Client();
-        $res = $guzzle->request('GET','http://localhost:8887/api/post', ['query' =>['api_token' => 'A7jHvdqnbZtiFFrlOXvVeELX7CQoGfXTHlc9kEnlvKyfhfDdBTsHGxRsQy3r']]);
-        dd($res->json());
-
         $posts = Posts::latest()
             ->filter(request(['month','year']))
             ->get();
@@ -55,7 +50,6 @@ class PostsController extends Controller
     }
 
     public function store(Request $request){
-
 
         $this->validate($request,[
             'title'=> 'required|unique:posts|max:255',
