@@ -27,7 +27,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         return response()->json(['msg'=>'Please Check your credentials and try again!','status'=>'fail']);
     });
     Route::post('post', 'APIController@store');
-    Route::get('post/{id}', 'APIController@show');
+    Route::get('post/{post}', 'APIController@show');
+    Route::post('post/comment', 'APIController@storecomment');
 
 });
 

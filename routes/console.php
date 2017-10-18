@@ -12,7 +12,18 @@ use Illuminate\Foundation\Inspiring;
 | simple approach to interacting with each command's IO methods.
 |
 */
+use App\Mail\WelcomeAgain;
+
+use App\User;
+
+use Illuminate\Support\Facades\Mail;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
+})->describe('Display an inspiring quote');
+
+Artisan::command('sendmail', function () {
+    $user = User::find('1');
+    \Mail::to($user)->send(new WelcomeAgain($user));
+    $this->comment('Mail Send Successfully to '.$user->email);
 })->describe('Display an inspiring quote');

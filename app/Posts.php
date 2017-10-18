@@ -6,7 +6,8 @@ use Carbon\Carbon;
 class Posts extends Model
 {
     public function commentsa(){
-        return $this->hasMany(Comments::class);
+        $comments = $this->hasMany(Comments::class);
+        return $comments;
     }
     public function users(){
         return $this->belongsTo(User::class);

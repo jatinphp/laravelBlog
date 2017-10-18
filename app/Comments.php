@@ -5,6 +5,8 @@ namespace App;
 
 class Comments extends Model
 {
+	protected $with = ['users'];
+
 
     public function posts(){
         return $this->belongsTo(Posts::class);
